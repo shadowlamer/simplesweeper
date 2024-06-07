@@ -71,7 +71,7 @@ function markCell(row, column) {
 
 function openNeighbourCells(row, column) {
     forAllNeighbourCells(row, column, function(r, c) {
-        if (!isMarked(r, c)) openCell(r, c);
+        if (!isMarked(r, c)) openCellRecursive(r, c);
     })
 }
 
