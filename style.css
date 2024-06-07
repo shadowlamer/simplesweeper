@@ -37,42 +37,38 @@
     background-repeat: no-repeat;
 }
 
-.count-0 {
-    color: white;
-}
-
-.count-1 {
+.count-1.empty {
     color: blue;
 }
 
-.count-2 {
+.count-2.empty {
     color: darkred;
 }
 
-.count-3 {
+.count-3.empty {
     color: fuchsia;
 }
 
-.count-4 {
+.count-4.empty {
     color: red;
 }
 
-.count-5 {
+.count-5.empty {
     color: green;
 }
 
-.count-6 {
+.count-6.empty {
     color: yellow;
 }
 
-.count-7 {
+.count-7.empty {
     color: darkorchid;
 }
 
-.count-8 {
+.count-8.empty {
     color: chartreuse;
 }
 
-.count-9 {
+.count-9.empty {
     color: coral;
 }
