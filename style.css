@@ -1,0 +1,78 @@
+.field {
+    display: flex;
+}
+
+.cell {
+    display: block;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+}
+
+.cell.closed {
+    border-top: white solid 3px;
+    border-bottom: darkgray solid 3px;
+    border-left: white solid 3px;
+    border-right: darkgray solid 3px;
+    background: lightgray;
+}
+
+.cell.opened {
+    border-top: darkgray solid 3px;
+    border-bottom: lightgray solid 3px;
+    border-left: darkgray solid 3px;
+    border-right: lightgray solid 3px;
+    background: white;
+}
+
+.mine.opened {
+    background-image: url("./assets/mine.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.cell.closed.marked {
+    background-image: url("./assets/flag.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.count-0 {
+    color: white;
+}
+
+.count-1 {
+    color: blue;
+}
+
+.count-2 {
+    color: darkred;
+}
+
+.count-3 {
+    color: fuchsia;
+}
+
+.count-4 {
+    color: red;
+}
+
+.count-5 {
+    color: green;
+}
+
+.count-6 {
+    color: yellow;
+}
+
+.count-7 {
+    color: darkorchid;
+}
+
+.count-8 {
+    color: chartreuse;
+}
+
+.count-9 {
+    color: coral;
+}
