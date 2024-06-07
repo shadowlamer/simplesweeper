@@ -17,7 +17,7 @@ function initField() {
             const mineOrEmpty = getMineOrEmpty();
             let cell = (createCell(row, column, mineOrEmpty));
             rowContainer.append(cell);
-            fieldArray[row][column] = {mineOrEmpty: mineOrEmpty, cell: cell};
+            fieldArray[row][column] = cell;
         }
         field.append(rowContainer);
     }
@@ -42,56 +42,70 @@ function createCell(row, column, mineOrEmpty) {
 function cellClickHandler(e) {
     e.preventDefault();
 
-    const cell = e.target;
-    const row = cell.getAttribute('data-row')
-    const column = cell.getAttribute('data-column')
+    const row = e.target.getAttribute('data-row')
+    const column = e.target.getAttribute('data-column')
 
     switch (e.buttons) {
         case 0: // left button
-            openCellRecursive(row, column);
+            if (isOpened(row, column)) {
+                openNeighbourCells(row, column);
+            } else {
+                openCellRecursive(row, column);
+            }
             break;
         case 2: // right button
-            markCell(cell);
+            markCell(row, column);
             break;
     }
     return false;
 }
 
-function markCell(e) {
-    if (e.classList.contains("marked")) {
-        e.classList.remove("marked");
+function markCell(row, column) {
+    const cell = fieldArray[row][column]
+    if (cell.classList.contains("marked")) {
+        cell.classList.remove("marked");
     } else {
-        e.classList.add("marked");
+        cell.classList.add("marked");
     }
+}
+
+function openNeighbourCells(row, column) {
+    forAllNeighbourCells(row, column, function(r, c) {
+        if (!isMarked(r, c)) openCell(r, c);
+    })
 }
 
 function openCellRecursive(row, column) {
     openCell(row, column);
-    if (isMine(row, column)) {
-        overGame();
-    } else if (calcNeighbours(row, column) === 0) {
-        for (let dx = 0; dx < 3; dx++) {
-            for (let dy = 0; dy < 3; dy++) {
-                let r = row - 1 + dx;
-                let c = column - 1 + dy;
-                if (c >= 0 && c < MAX_COLUMNS && r >= 0 && r < MAX_ROWS) {
-                    let cell = fieldArray[r][c]['cell'];
-                    if (!isMine(r, c) && cell.classList.contains("closed")) openCellRecursive(r, c);
-                }
+    if (countNeighbourMines(row, column) === 0) {
+        forAllNeighbourCells(row, column, function(r, c) {
+            if (!isMine(r, c) && !isOpened(r, c)) openCellRecursive(r, c);
+        })
+    }
+}
+
+function forAllNeighbourCells(row, column, lambda) {
+    for (let dx = 0; dx < 3; dx++) {
+        for (let dy = 0; dy < 3; dy++) {
+            let r = row - 1 + dx;
+            let c = column - 1 + dy;
+            if (c >= 0 && c < MAX_COLUMNS && r >= 0 && r < MAX_ROWS) {
+                lambda(r, c);
             }
         }
     }
 }
 
 function openCell(row, column) {
-    const cell = fieldArray[row][column]['cell']
+    const cell = fieldArray[row][column]
     cell.classList.remove("closed");
     cell.classList.add("opened");
-    let mineCount = calcNeighbours(row, column);
+    let mineCount = countNeighbourMines(row, column);
     if (mineCount > 0) {
         cell.innerHTML = mineCount;
         cell.classList.add(`count-${mineCount}`)
     }
+    if (isMine(row,column)) overGame();
 }
 
 function overGame() {
@@ -99,19 +113,23 @@ function overGame() {
 }
 
 function isMine(row, column) {
-    return fieldArray[row][column]['mineOrEmpty'] === "mine"
+    return fieldArray[row][column].classList.contains("mine")
 }
 
-function calcNeighbours(row, column) {
+function isMarked(row, column) {
+    return fieldArray[row][column].classList.contains("marked");
+}
+
+function isOpened(row, column) {
+    return fieldArray[row][column].classList.contains("opened");
+}
+
+function countNeighbourMines(row, column) {
     if (isMine(row, column)) return -1;
     let mineCount = 0;
-    for (let dx = 0; dx < 3; dx++) {
-        for (let dy = 0; dy < 3; dy++) {
-            let r = row - 1 + dx;
-            let c = column - 1 + dy;
-            if (c >= 0 && c < MAX_COLUMNS && r >= 0 && r < MAX_ROWS && isMine(r, c)) mineCount++;
-        }
-    }
+    forAllNeighbourCells(row, column, function(r, c) {
+        if (isMine(r, c)) mineCount++;
+    })
     return mineCount;
 }
 
