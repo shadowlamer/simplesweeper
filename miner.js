@@ -64,6 +64,8 @@ function cellClickHandler(e) {
             markCell(row, column);
             break;
     }
+    printStats()
+    if (clearCount === MAX_ROWS * MAX_COLUMNS - mineCount) winGame();
     return false;
 }
 
@@ -104,6 +106,7 @@ function forAllNeighbourCells(row, column, lambda) {
 }
 
 function openCell(row, column) {
+    if (isOpened(row, column)) return;
     const cell = fieldArray[row][column]
     cell.classList.remove("closed");
     cell.classList.add("opened");
@@ -117,7 +120,6 @@ function openCell(row, column) {
     } else {
         clearCount++;
     }
-    printStats();
 }
 
 function printStats() {
@@ -127,6 +129,12 @@ function printStats() {
 
 function overGame() {
     alert("GameOver!");
+    initField();
+}
+
+function winGame() {
+    alert("You win!");
+    initField();
 }
 
 function isMine(row, column) {
