@@ -1,8 +1,10 @@
 .title {
+    display: flex;
     font-size: xx-large;
     vertical-align: center;
-    margin-left: 20px;
-    margin-top: 20px;
+    margin: 20px 12px;
+    width: 520px;
+    padding-left: 10px;
 }
 
 .stats-box {
@@ -12,15 +14,11 @@
     border-right: lightgray solid 3px;
     background: white;
     display: flex;
-
     font-size: x-large;
-
     margin: auto 10px;
-    width: 410px;
+    width: 420px;
     height: 30px;
     padding: 10px;
-    left: 156px;
-    position: relative;
 }
 
 .outer-container {
