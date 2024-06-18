@@ -129,12 +129,10 @@ function printStats() {
 
 function overGame() {
     alert("GameOver!");
-    initField();
 }
 
 function winGame() {
     alert("You win!");
-    initField();
 }
 
 function isMine(row, column) {
