@@ -1,5 +1,82 @@
-.field {
+.title {
+    font-size: xx-large;
+    vertical-align: center;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.stats-box {
+    border-top: darkgray solid 3px;
+    border-bottom: lightgray solid 3px;
+    border-left: darkgray solid 3px;
+    border-right: lightgray solid 3px;
+    background: white;
     display: flex;
+
+    font-size: x-large;
+
+    margin: auto 10px;
+    width: 410px;
+    height: 30px;
+    padding: 10px;
+    left: 156px;
+    position: relative;
+}
+
+.outer-container {
+    display: flex;
+    margin: auto;
+    width: 1000px;
+    height: 650px;
+    flex-direction: column;
+}
+
+.inner-container {
+    border-top: white solid 3px;
+    border-bottom: darkgray solid 3px;
+    border-left: white solid 3px;
+    border-right: darkgray solid 3px;
+    background: lightgray;
+    display: flex;
+    margin: auto;
+    width: 1000px;
+    height: 650px;
+    flex-direction: row;
+}
+
+.header-bar {
+    border-top: white solid 3px;
+    border-bottom: darkgray solid 3px;
+    border-left: white solid 3px;
+    border-right: darkgray solid 3px;
+    background: lightgray;
+    display: flex;
+    margin: auto;
+    width: 1000px;
+    height: 80px;
+}
+
+.disclaimer-box {
+    border-top: darkgray solid 3px;
+    border-bottom: lightgray solid 3px;
+    border-left: darkgray solid 3px;
+    border-right: lightgray solid 3px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    margin: auto 10px;
+    width: 420px;
+    height: 520px;
+    padding: 10px;
+
+}
+
+.field {
+    border: darkgray solid 2px;
+    display: flex;
+    margin: auto 10px;
+    width: 520px;
+    height: 520px;
 }
 
 .cell {

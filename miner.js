@@ -2,25 +2,30 @@ const MAX_ROWS = 20
 const MAX_COLUMNS = 20
 
 const fieldArray = []
+let mineCount = 0
+let clearCount = 0
 
 function getMineOrEmpty() {
     return (Math.random() > 0.9) ? "mine" : "empty";
 }
 
 function initField() {
+    mineCount = 0;
+    clearCount = 0
+
     const field = document.getElementById('field')
     field.innerHTML = ''
     for (let row = 0; row < MAX_ROWS; row++) {
         let rowContainer = createRowContainer();
         fieldArray[row] = []
         for (let column = 0; column < MAX_COLUMNS; column++) {
-            const mineOrEmpty = getMineOrEmpty();
-            let cell = (createCell(row, column, mineOrEmpty));
+            let cell = (createCell(row, column));
             rowContainer.append(cell);
             fieldArray[row][column] = cell;
         }
         field.append(rowContainer);
     }
+    printStats();
 }
 
 function createRowContainer() {
@@ -29,7 +34,9 @@ function createRowContainer() {
     return rowContainer;
 }
 
-function createCell(row, column, mineOrEmpty) {
+function createCell(row, column) {
+    const mineOrEmpty = getMineOrEmpty();
+    if (mineOrEmpty === "mine") mineCount++;
     const cell = document.createElement("div");
     cell.classList.add("cell", "closed", mineOrEmpty);
     cell.setAttribute("data-row", row);
@@ -105,7 +112,17 @@ function openCell(row, column) {
         cell.innerHTML = mineCount;
         cell.classList.add(`count-${mineCount}`)
     }
-    if (isMine(row,column)) overGame();
+    if (isMine(row,column)) {
+        overGame();
+    } else {
+        clearCount++;
+    }
+    printStats();
+}
+
+function printStats() {
+    const stats = document.getElementById('stats')
+    stats.innerHTML = `Очищено ${clearCount} из ${MAX_ROWS * MAX_COLUMNS - mineCount}`
 }
 
 function overGame() {
