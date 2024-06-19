@@ -13,8 +13,8 @@ function initField() {
     mineCount = 0;
     clearCount = 0
 
-    const field = document.getElementById('field')
-    field.innerHTML = ''
+    const field = document.getElementById("field")
+    field.innerHTML = ""
     for (let row = 0; row < MAX_ROWS; row++) {
         let rowContainer = createRowContainer();
         fieldArray[row] = []
@@ -49,18 +49,18 @@ function createCell(row, column) {
 function cellClickHandler(e) {
     e.preventDefault();
 
-    const row = e.target.getAttribute('data-row')
-    const column = e.target.getAttribute('data-column')
+    const row = e.target.getAttribute("data-row")
+    const column = e.target.getAttribute("data-column")
 
-    switch (e.buttons) {
-        case 0: // left button
+    switch (e.type) {
+        case "click": // left button
             if (isOpened(row, column)) {
                 openNeighbourCells(row, column);
             } else {
                 openCellRecursive(row, column);
             }
             break;
-        case 2: // right button
+        case "contextmenu": // right button
             markCell(row, column);
             break;
     }
@@ -123,7 +123,7 @@ function openCell(row, column) {
 }
 
 function printStats() {
-    const stats = document.getElementById('stats')
+    const stats = document.getElementById("stats")
     stats.innerHTML = `Очищено ${clearCount} из ${MAX_ROWS * MAX_COLUMNS - mineCount}`
 }
 
